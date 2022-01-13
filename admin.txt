@@ -1,0 +1,152 @@
+
+mysql> create database db21;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> create user 'omkar'@'%' identified by 'omkar';
+Query OK, 0 rows affected (0.15 sec)
+
+mysql>
+mysql> grant all previleges on db21.* to 'omkar'@'%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'previleges on db21.* to 'omkar'@'%'' at line 1
+mysql>
+mysql>
+mysql>
+mysql> grant all privileges on db21.* to 'omkar'@'%';
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> select * from dept;
++--------+------------+----------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        |
++--------+------------+----------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  |
+|     30 | SALES      | CHICAGO  | sales@2017 |
+|     40 | OPERATIONS | BOSTON   | opr@123    |
++--------+------------+----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> drop view v1;
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> drop view v2;
+ERROR 1051 (42S02): Unknown table 'demo.v2'
+mysql> drop view v3;
+ERROR 1051 (42S02): Unknown table 'demo.v3'
+mysql> drop view v3;
+ERROR 1051 (42S02): Unknown table 'demo.v3'
+mysql>
+mysql> crete view v1 as select * from dept;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'crete view v1 as select * from dept' at line 1
+mysql> craete view v1 as select * from dept;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'craete view v1 as select * from dept' at line 1
+mysql> create view v1 as select * from dept;
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> select * from v1;
++--------+------------+----------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        |
++--------+------------+----------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  |
+|     30 | SALES      | CHICAGO  | sales@2017 |
+|     40 | OPERATIONS | BOSTON   | opr@123    |
++--------+------------+----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from dept;
++--------+------------+----------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        |
++--------+------------+----------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  |
+|     30 | SALES      | CHICAGO  | sales@2017 |
+|     40 | OPERATIONS | BOSTON   | opr@123    |
++--------+------------+----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from v1;
++--------+------------+----------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        |
++--------+------------+----------+------------+
+|     10 | ACCOUNTING | NEW YORK | r50mpm     |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  |
+|     30 | SALES      | CHICAGO  | sales@2017 |
+|     40 | OPERATIONS | BOSTON   | opr@123    |
++--------+------------+----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select database();
++------------+
+| database() |
++------------+
+| demo       |
++------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> grant select on dept to omkar;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> grant select on dept to omkar;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql>
+mysql> revoke select on dept from omkar;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql>
+mysql> grant select on v1 to omkar;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> insert into dept.v1 values(1,1,1,1);
+ERROR 1049 (42000): Unknown database 'dept'
+mysql> insert into v1 values(1,1,1,1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from dept;
++--------+------------+----------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        |
++--------+------------+----------+------------+
+|      1 | 1          | 1        | 1          |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  |
+|     30 | SALES      | CHICAGO  | sales@2017 |
+|     40 | OPERATIONS | BOSTON   | opr@123    |
++--------+------------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from v1;
++--------+------------+----------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        |
++--------+------------+----------+------------+
+|      1 | 1          | 1        | 1          |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  |
+|     30 | SALES      | CHICAGO  | sales@2017 |
+|     40 | OPERATIONS | BOSTON   | opr@123    |
++--------+------------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> grant insert on v1 to omkar;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from dept;
++--------+------------+----------+------------+
+| DEPTNO | DNAME      | LOC      | PWD        |
++--------+------------+----------+------------+
+|      1 | 1          | 1        | 1          |
+|      2 | 2          | 2        | 2          |
+|     10 | ACCOUNTING | NEW YORK | r50mpm     |
+|     20 | RESEARCH   | DALLAS   | a12recmpm  |
+|     30 | SALES      | CHICAGO  | sales@2017 |
+|     40 | OPERATIONS | BOSTON   | opr@123    |
++--------+------------+----------+------------+
+6 rows in set (0.00 sec)
+
+mysql>
